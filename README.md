@@ -97,7 +97,7 @@ Limitations
 ----------
 Only Works with http (not https)
 
-How to login in asp.net with cookie (Web form auth)
+How to login in asp.net forms with getting a cookie (forms-based authentication)
 -----------------
 First we need to get login page after that we need to post the username and password with __VIEWSTATE of the page, Finally, we need to send the cookie for private pages. in this example the login page named logon.aspx and the private page is default.aspx .
 ```
