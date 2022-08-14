@@ -477,9 +477,7 @@ class Session:
             h+=b"Content-Type: application/json\r\n"
         if data:
             if isinstance(data, dict):
-                self._send(
-                    socket, b"Content-Type: application/x-www-form-urlencoded\r\n"
-                )
+                h+=b"Content-Type: application/x-www-form-urlencoded\r\n"
                 _post_data = ""
                 for k in data:
                     _post_data = "{}&{}={}".format(_post_data, k, data[k])
