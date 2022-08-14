@@ -50,6 +50,7 @@ ampy --port COM9 put sma_esp32_w5500_requests.mpy
 
 2) run main.py or below code:
 
+```
 from wiznet5k import WIZNET5K
 from machine import Pin, SPI
 import wiznet5k_socket as socket
@@ -85,6 +86,6 @@ print('-'*40)
 r.close()
 
 print("Done!")
-
+```
 
 
