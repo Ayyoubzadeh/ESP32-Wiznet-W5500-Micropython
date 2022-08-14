@@ -26,15 +26,15 @@ Wiring
 <br/>
 GND----------------------G
 <br/>
-D5------------------------CS
+GPIO5(VSPI_CS)----------CS
 <br/>
-D18----------------------SCK
+GPIO18(VSPI_CLK)-------SCK
 <br/>
-D23----------------------MO
+GPIO23(VSPI_MOSI)-----MO
 <br/>
-D19----------------------MI
+GPIO19(VSPI_MISO)-----MI
 <br/>
-D34----------------------RST
+GPIO34------------------RST
 
 Instructions
 -----
