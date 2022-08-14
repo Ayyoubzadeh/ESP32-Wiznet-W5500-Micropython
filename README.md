@@ -87,5 +87,7 @@ r.close()
 
 print("Done!")
 ```
-
+Limitations
+----------
+Only Works with http (not https)
 
