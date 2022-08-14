@@ -1,8 +1,6 @@
 from wiznet5k import WIZNET5K
 from machine import Pin, SPI
 import wiznet5k_socket as socket
-import time
-import struct
 import sma_esp32_w5500_requests as requests
 
 
