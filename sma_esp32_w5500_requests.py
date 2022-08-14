@@ -24,8 +24,22 @@ import sys
 
 import json as json_module
 
+
+
+always_safe = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+               'abcdefghijklmnopqrstuvwxyz'
+               '0123456789' '_.-')
+def encode(s):
+    res = []
+    replacements = {}
+    for c in s:
+        if c in always_safe:
+            res.append(c)
+            continue
+        res.append('%%%x' % ord(c))
+    return ''.join(res)
+
 def cast(_t, value):
-    """No-op shim for the typing.cast() function which is not available in CircuitPython."""
     return value
 
 class _RawResponse:
@@ -428,20 +442,26 @@ class Session:
             # ESP32SPI sockets raise a RuntimeError when unable to send.
             try:
                 sent = socket.send(data[total_sent:])
+                #print("\r\nsent",sent,"bytes")
             except OSError as exc:
                 if exc.errno == errno.EAGAIN:
+                    #print("\r\ncant send")
                     # Can't send right now (e.g., no buffer space), try again.
                     continue
                 # Some worse error.
                 raise
             except RuntimeError as exc:
+                #print("\r\ncant send2")
                 raise OSError(errno.EIO) from exc
             if sent is None:
                 sent = len(data)
             if sent == 0:
                 # Not EAGAIN; that was already handled.
+                #print("\r\ncant send3")
                 raise OSError(errno.EIO)
+           #print("sent at the end",sent)
             total_sent += sent
+            #print("total_sent at the end",total_sent)
 
     def _send_request(
         self,
@@ -480,15 +500,18 @@ class Session:
                 h+=b"Content-Type: application/x-www-form-urlencoded\r\n"
                 _post_data = ""
                 for k in data:
-                    _post_data = "{}&{}={}".format(_post_data, k, data[k])
-                data = _post_data[1:]
+                    data[k]=data[k]
+                    _post_data +=(str(k)+"="+encode(str(data[k]))+"&")
+                data = _post_data[:-1]
             if isinstance(data, str):
                 data = bytes(data, "utf-8")
-            h+=b"Content-Length: %d\r\n" % len(data)
+            h+=(b"Content-Length: %d\r\n" % len(data))
         h+=b"\r\n"
         if data:
             h+=bytes(data)
+        #print("\r\nencoded data",h)
         self._send(socket, h)
+        #print("\r\nsent",h)
 
     # pylint: disable=too-many-branches, too-many-statements, unused-argument, too-many-arguments, too-many-locals
     def request(
@@ -541,7 +564,9 @@ class Session:
             ok = True
             try:
                 self._send_request(socket, host, method, path, headers, data, json)
+                #print('sent')
             except OSError:
+                #print('OSError')
                 ok = False
             if ok:
                 # Read the H of "HTTP/1.1" to make sure the socket is alive. send can appear to work
@@ -553,6 +578,7 @@ class Session:
                     try:
                         socket.recv_into(result)
                     except OSError:
+                        #print('OSError')
                         pass
                 if result == b"H":
                     # Things seem to be ok so break with socket set.
@@ -564,7 +590,11 @@ class Session:
             raise OutOfRetries("Repeated socket failures")
 
         resp = Response(socket, self)  # our response
+        #print(resp.text)
+        #print(resp.headers)
+        #print("\r\n"+str(resp.status_code)+"\r\n")
         if "location" in resp.headers and 300 <= resp.status_code <= 399:
+            return resp
             # a naive handler for redirects
             redirect = resp.headers["location"]
 
@@ -712,4 +742,5 @@ def patch(url: str, **kw):
 def delete(url: str, **kw):
     """Send HTTP DELETE request"""
     return _default_session.request("DELETE", url, **kw)
+
 
