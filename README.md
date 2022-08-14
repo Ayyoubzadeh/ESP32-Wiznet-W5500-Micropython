@@ -16,7 +16,10 @@ Micropython
 Tools
 --------
 python
-ampy (install with pip install ampy)
+ampy (install using pip)
+```
+pip install adafruit-ampy
+```
 
 Wiring
 -------
