@@ -24,7 +24,7 @@ print("IP lookup google.com: %s" %nic.pretty_ip(nic.get_host_by_name("google.com
 requests.set_socket(socket, nic)
 
 
-#eth._debug = True
+#nic._debug = True
 print("Fetching text from", TEXT_URL)
 r = requests.get(TEXT_URL)
 print('-'*40)
