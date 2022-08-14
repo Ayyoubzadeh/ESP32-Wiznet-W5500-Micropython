@@ -16,7 +16,7 @@ author='Seyed Mohammad Ayyoubzadeh'
 license='MIT'
 
 __version__ = "1.0.0"
-__repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_Requests.git"
+__repo__ = ""
 """
 
 import errno
