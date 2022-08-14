@@ -40,11 +40,13 @@ Instructions
 1) Upload wiznet5k.mpy, wiznet5k_dhcp.mpy, wiznet5k_dns.mpy, wiznet5k_socket.mpy,sma_esp32_w5500_requests with ampy
 
 example:
+```
 ampy --port COM9 put wiznet5k.mpy
 ampy --port COM9 put wiznet5k_dhcp.mpy
 ampy --port COM9 put wiznet5k_dns.mpy
 ampy --port COM9 put wiznet5k_socket.mpy
 ampy --port COM9 put sma_esp32_w5500_requests.mpy
+```
 
 
 
