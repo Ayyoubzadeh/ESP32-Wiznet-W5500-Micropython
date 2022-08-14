@@ -97,3 +97,55 @@ Limitations
 ----------
 Only Works with http (not https)
 
+How To login in asp.net with cookie (Web form auth)
+-----------------
+```
+from wiznet5k import WIZNET5K
+from machine import Pin, SPI
+import wiznet5k_socket as socket
+import sma_esp32_w5500_requests as requests
+
+def findVal(txt,tag):
+    g=txt[txt.find(tag):]
+    g=g[g.find("value"):]
+    g=g[:g.find("/>")]
+    g=g.strip()
+    g=g.replace("value=\"","")
+    g=g[:-1] # remove "
+    return g
+
+spi = SPI(2)
+cs = Pin(5,Pin.OUT)
+rst=Pin(34)
+nic = WIZNET5K(spi,cs,rst)
+
+
+print("Chip Version:", nic.chip)
+print("MAC Address:", [hex(i) for i in nic.mac_address])
+print("My IP address is:", nic.pretty_ip(nic.ip_address))
+
+
+requests.set_socket(socket, nic)
+url = 'http://win.smait.ir/logon.aspx'
+g = requests.get(url).text
+payload ={}
+payload['__EVENTTARGET']=""
+payload['__EVENTARGUMENT']=""
+payload['__VIEWSTATE']=findVal(g,'__VIEWSTATE')
+payload['__VIEWSTATEGENERATOR']=findVal(g,'__VIEWSTATEGENERATOR')
+payload['__EVENTVALIDATION']=findVal(g,'__EVENTVALIDATION')
+payload['txtUserName']="1"
+payload['txtUserPass']="2"
+payload['Button1']="Login"
+print(payload)
+#p1 = requests.post('http://192.168.1.170/logon.aspx', data=payload,headers={'Host':'win.smait.ir','Origin':'http://win.smait.ir','Referer':'http://win.smait.ir/logon.aspx'})
+
+
+p = requests.post(url, data=payload)
+print(p.headers)
+cookie=p.headers['set-cookie'].split('; expires=')[0]
+print(cookie)
+p2 = requests.get('http://win.smait.ir/default.aspx', headers={"Cookie":cookie})
+print(p2.text)
+```
+
