@@ -99,7 +99,7 @@ Only Works with http (not https)
 
 How to login in asp.net with cookie (Web form auth)
 -----------------
-First we need to get login page after that we need to post the username and password with __VIEWSTATE of the page. Finally we need to send the cookie for private pages. example:
+First we need to get login page after that we need to post the username and password with __VIEWSTATE of the page, Finally, we need to send the cookie for private pages. in this example the login page named logon.aspx and the private page is default.aspx .
 ```
 from wiznet5k import WIZNET5K
 from machine import Pin, SPI
@@ -139,7 +139,6 @@ payload['txtUserName']="1"
 payload['txtUserPass']="2"
 payload['Button1']="Login"
 print(payload)
-#p1 = requests.post('http://192.168.1.170/logon.aspx', data=payload,headers={'Host':'win.smait.ir','Origin':'http://win.smait.ir','Referer':'http://win.smait.ir/logon.aspx'})
 
 
 p = requests.post(url, data=payload)
