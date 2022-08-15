@@ -43,7 +43,7 @@ Instructions
 -----
 1) Upload wiznet5k.mpy, wiznet5k_dhcp.mpy, wiznet5k_dns.mpy, wiznet5k_socket.mpy,sma_esp32_w5500_requests with ampy
 
-example:
+example: (replace COM9 with your esp32 connected serial port)
 ```
 ampy --port COM9 put wiznet5k.mpy
 ampy --port COM9 put wiznet5k_dhcp.mpy
