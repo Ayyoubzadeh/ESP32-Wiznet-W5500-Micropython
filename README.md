@@ -1,5 +1,5 @@
 # Micropython-ESP32-W5500 (Wiznet)
-Connect your ESP32 to W5500 (Wiznet) ethernet module.
+Connect your ESP32 to W5500 (Wiznet) ethernet module. and use Python requests as http client
 
 Hardware
 --------
@@ -23,21 +23,16 @@ pip install adafruit-ampy
 
 Wiring
 -------
-<b>ESP-32----------------W5500</b>
-<br/>
-3V3-----------------------V
-<br/>
-GND----------------------G
-<br/>
-GPIO5(VSPI_CS)----------CS
-<br/>
-GPIO18(VSPI_CLK)-------SCK
-<br/>
-GPIO23(VSPI_MOSI)-----MO
-<br/>
-GPIO19(VSPI_MISO)-----MI
-<br/>
-GPIO34------------------RST
+
+| ESP-32  | W5500 |
+| ------------- | ------------- |
+| 3V3  | V  |
+| GND  | G  |
+| GPIO5(VSPI_CS)  | CS  |
+| GPIO18(VSPI_CLK)  | SCK  |
+| GPIO23(VSPI_MOSI)  | MO  |
+| GPIO19(VSPI_MISO)  | MI  |
+| GPIO34  | RST  |
 
 Instructions
 -----
