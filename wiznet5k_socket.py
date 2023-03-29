@@ -256,8 +256,9 @@ class socket:
         a remote socket.
         :param bytearray data: Desired data to send to the socket.
         """
-        _the_interface.socket_write(self.socknum, data, self._timeout)
+        ret = _the_interface.socket_write(self.socknum, data, self._timeout)
         gc.collect()
+        return ret
 
     def sendto(self, data, address):
         """Send data to the socket. The socket must be connected to
