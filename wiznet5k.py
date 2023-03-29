@@ -336,7 +336,7 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
             return self._pbuff
         for octet in range(0, 2):
             self._pbuff[octet] = self._read_socket(socket_num, REG_SNDPORT + octet)[0]
-        return int((self._pbuff[0] << 8) | self._pbuff[0])
+        return int((self._pbuff[0] << 8) | self._pbuff[1])
 
     @property
     def ifconfig(self):
