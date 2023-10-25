@@ -1,5 +1,5 @@
 # Micropython-ESP32-W5500 (Wiznet)
-Connect your ESP32 to W5500 (Wiznet) ethernet module. and use Python requests as http client
+Connect your ESP32 to W5500 (Wiznet) ethernet module and use Python requests as http client
 
 ![Untitled](https://user-images.githubusercontent.com/92551110/189515479-bfadad62-0bf1-4efc-84bb-ae88b58ec12a.png)
 
